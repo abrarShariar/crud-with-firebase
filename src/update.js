@@ -3,8 +3,8 @@ const quotePanel = document.getElementById('quote_panel');
 
 function getPanelDOM(name,quote){
   var panelDOM = "<div class='panel panel-primary'><div class='panel-heading'>" + name + "</div>" +
-                            "<div class='panel-body'> Quote: " + quote +
-                            "<br><button id='" + name +"' type='button' class='btn btn-info' onclick='updateData(this.id)'>Update</button>" +
+                            "<div class='panel-body'> Quote: <strong>" + quote +
+                            "</strong><br><button id='" + name +"' type='button' class='btn btn-info' onclick='updateData(this.id)'>Update</button>" +
                             "<button id='"+ name +"' type='button' class='btn btn-danger' onclick='deleteData(this.id)'>Delete</button>" +
                              "</div></div>";
   return panelDOM;
@@ -12,12 +12,17 @@ function getPanelDOM(name,quote){
 
 //update method (based on key passed)
 function updateData(key){
-      
+
 }
 //delete method (based on key passed)
 function deleteData(key){
-
-
+    userQuoteDB.child(key).remove(function(error){
+        if(error){
+            console.log('Synchronization failed');
+        } else{
+            console.log('Synchronization succeeded');
+        }
+    });
 }
 
 userQuoteDB.on('value',snap => {
@@ -28,6 +33,16 @@ userQuoteDB.on('value',snap => {
           node.innerHTML = getPanelDOM(item,info.quote);
           quotePanel.appendChild(node);
       }
+});
+
+
+//listen for child remove event
+userQuoteDB.on('child_removed',snap => {
+      location.reload();
+});
+//listen for child changed event
+userQuoteDB.on('child_changed',snap => {
+      location.reload();
 });
 
 /*
