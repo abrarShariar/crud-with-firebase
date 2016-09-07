@@ -12,7 +12,7 @@ function getPanelDOM(name,quote){
 
 //update method (based on key passed)
 function updateData(key){
-
+      window.location = "./edit.html"+ "?name=" + key;
 }
 //delete method (based on key passed)
 function deleteData(key){
@@ -44,25 +44,3 @@ userQuoteDB.on('child_removed',snap => {
 userQuoteDB.on('child_changed',snap => {
       location.reload();
 });
-
-/*
-//update existing data in firebase
-var key = "abrar";
-var newQuote = "I love RockStar";
-//prepare data
-var data = {
-    name : key,
-    quote : newQuote,
-  };
-
-var updates = {};
-updates['/user_quotes/' + data.name + '/quote/'] = data.quote;
-database.update(updates);
-
-
-
-//log changes (debug it)
- userQuoteDB.child('abrar').on('value',snap => {
-         console.log(snap.val().quote);
-});
-*/
