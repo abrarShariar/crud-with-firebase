@@ -6,8 +6,6 @@ const quoteBox = document.getElementById('quoteBox');
 userQuoteDB.on('value',snap => {
     var data =  snap.val();
     quoteBox.innerText = JSON.stringify(snap.val(),null,3);
-    //console.log(data);
-    //console.log(snap.child('abrar').val());
     //retrive data as NAME : QUOTE
     for(var item in data){
       var info = snap.child(item).val();
